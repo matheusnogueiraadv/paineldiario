@@ -7,8 +7,6 @@ directory = "./"
 binding = "ASSETS"
 not_found_handling = "404-page"
 
-# Substitua "COLOQUE_AQUI_O_ID_DO_NAMESPACE" pelo ID do namespace KV
-# criado no painel do Cloudflare (Workers & Pages > Storage > KV).
 [[kv_namespaces]]
 binding = "PAINEL_KV"
-id = "COLOQUE_AQUI_O_ID_DO_NAMESPACE"
+id = "76d26726c3d044f38339afed3b9c1330"
