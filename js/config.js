@@ -2,10 +2,6 @@
    CONFIG — parâmetros gerais do painel
    ========================================================= */
 const CONFIG = {
-  // Chave de persistência local (mock). Será substituída pela
-  // integração com Google Sheets (ver backend/README.md).
-  storageKey: 'cerus_painel_produtividade_v1',
-
   // Intervalo de atualização automática dos dados (ms)
   refreshMs: 15000,
 

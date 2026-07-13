@@ -1,60 +1,48 @@
 /* =========================================================
    DATASTORE — camada de dados do painel.
 
-   Hoje: persistência em localStorage (mock), com sincronização
-   entre abas via evento 'storage' (admin ⇄ dashboard).
+   Hoje: fonte central via Cloudflare Worker + KV (arquivo
+   worker.js), acessível em /api/dados. Qualquer dispositivo
+   (TV, painel administrativo) lê e grava no mesmo lugar —
+   diferente do antigo modelo em localStorage, que era isolado
+   por navegador/computador.
 
-   Futuro: trocar o adaptador interno por chamadas ao backend
-   do Google Sheets (Apps Script) mantendo a MESMA interface
-   pública: load(), save(), onChange(). Nada fora deste arquivo
-   precisará mudar. Ver backend/README.md.
+   Futuro: Google Sheets pode substituir ou complementar o KV
+   como fonte de dados. Como load()/save() são a única interface
+   usada pelo resto do app, a troca fica isolada neste arquivo.
+   Ver backend/README.md.
    ========================================================= */
 const DataStore = (() => {
+  const ENDPOINT = '/api/dados';
 
-  /* ---------- Adaptador atual: localStorage (mock) ---------- */
-  const LocalAdapter = {
-    load() {
-      try {
-        const raw = localStorage.getItem(CONFIG.storageKey);
-        if (raw) return JSON.parse(raw);
-      } catch (e) {
-        console.warn('DataStore: dados locais inválidos, usando mock.', e);
-      }
-      return JSON.parse(JSON.stringify(MOCK_DATA));
-    },
-    save(data) {
-      data.atualizadoEm = new Date().toISOString();
-      localStorage.setItem(CONFIG.storageKey, JSON.stringify(data));
-      return Promise.resolve(data);
-    },
-  };
+  async function load() {
+    try {
+      const resposta = await fetch(ENDPOINT, { cache: 'no-store' });
+      if (!resposta.ok) throw new Error('HTTP ' + resposta.status);
+      const dados = await resposta.json();
+      if (dados && dados.financeiro) return dados;
+    } catch (e) {
+      console.warn('DataStore: não foi possível carregar os dados da nuvem, usando mock local.', e);
+    }
+    return JSON.parse(JSON.stringify(MOCK_DATA));
+  }
 
-  /* ---------- Adaptador futuro: Google Sheets ----------
-  const SheetsAdapter = {
-    // GET  <URL_APPS_SCRIPT>?action=read   → JSON no formato de MOCK_DATA
-    // POST <URL_APPS_SCRIPT>  body=JSON    → grava na planilha
-    async load() { ... },
-    async save(data) { ... },
-  };
-  ------------------------------------------------------- */
-
-  const adapter = LocalAdapter;
+  async function save(dados) {
+    dados.atualizadoEm = new Date().toISOString();
+    const resposta = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados),
+    });
+    if (!resposta.ok) throw new Error('HTTP ' + resposta.status);
+    return dados;
+  }
 
   return {
-    load: () => adapter.load(),
-    save: (data) => adapter.save(data),
+    load,
+    save,
 
-    /* Notifica quando os dados mudarem em outra aba (ex.: admin salvou). */
-    onChange(callback) {
-      window.addEventListener('storage', (e) => {
-        if (e.key === CONFIG.storageKey) callback(adapter.load());
-      });
-    },
-
-    /* Restaura os dados fictícios originais. */
-    reset() {
-      localStorage.removeItem(CONFIG.storageKey);
-      return adapter.load();
-    },
+    /* Restaura os dados fictícios originais (grava na nuvem também). */
+    reset: () => save(JSON.parse(JSON.stringify(MOCK_DATA))),
   };
 })();

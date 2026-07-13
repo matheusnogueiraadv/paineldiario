@@ -199,13 +199,12 @@
     renderRelogio();
     setInterval(renderRelogio, 1000);
 
-    renderAll(DataStore.load());
+    DataStore.load().then(renderAll);
 
-    // Atualização automática (polling) — mantém o painel vivo na TV
-    setInterval(() => renderAll(DataStore.load()), CONFIG.refreshMs);
-
-    // Atualização imediata quando o admin salva em outra aba
-    DataStore.onChange(renderAll);
+    // Atualização automática (polling) — busca dados novos salvos no
+    // painel administrativo, mesmo que tenham sido gravados em outro
+    // dispositivo/computador. Mantém o painel vivo na TV.
+    setInterval(() => DataStore.load().then(renderAll), CONFIG.refreshMs);
 
     // Rotação de páginas das audiências
     setInterval(() => {

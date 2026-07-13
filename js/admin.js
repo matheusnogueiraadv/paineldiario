@@ -1,14 +1,15 @@
 /* =========================================================
    ADMIN — formulários de edição dos indicadores.
    Lê os dados via DataStore, monta os formulários e, ao
-   salvar, grava via DataStore.save() — o dashboard aberto em
-   outra aba é atualizado automaticamente (evento 'storage').
+   salvar, grava via DataStore.save() na nuvem — qualquer
+   dispositivo (TV, outro computador) recebe a atualização no
+   próximo carregamento/atualização automática.
    ========================================================= */
 (() => {
   const $ = (sel) => document.querySelector(sel);
   const grid = () => $('#adminGrid');
 
-  let dados = DataStore.load();
+  let dados = null;
 
   /* ---------- Controle de acesso ---------- */
   function initGate() {
@@ -181,18 +182,28 @@
   }
 
   function initAcoes() {
-    $('#btnSalvar').addEventListener('click', () => {
+    $('#btnSalvar').addEventListener('click', async () => {
       coletar();
-      DataStore.save(dados);
-      mostrarAviso();
+      try {
+        await DataStore.save(dados);
+        mostrarAviso();
+      } catch (e) {
+        alert('Não foi possível salvar na nuvem. Verifique sua conexão e tente novamente.');
+        console.error(e);
+      }
     });
 
     $('#btnAbrirPainel').addEventListener('click', () => window.open('index.html', '_blank'));
 
-    $('#btnResetar').addEventListener('click', () => {
+    $('#btnResetar').addEventListener('click', async () => {
       if (!confirm('Restaurar os dados fictícios originais? As alterações atuais serão perdidas.')) return;
-      dados = DataStore.reset();
-      render();
+      try {
+        dados = await DataStore.reset();
+        render();
+      } catch (e) {
+        alert('Não foi possível restaurar os dados na nuvem. Verifique sua conexão e tente novamente.');
+        console.error(e);
+      }
     });
 
     $('#btnExportar').addEventListener('click', () => {
@@ -224,8 +235,9 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
     initGate();
+    dados = await DataStore.load();
     render();
     initAcoes();
   });

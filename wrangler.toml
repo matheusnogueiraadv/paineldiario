@@ -1,6 +1,14 @@
 name = "paineldiario"
 compatibility_date = "2026-07-13"
+main = "worker.js"
 
 [assets]
 directory = "./"
+binding = "ASSETS"
 not_found_handling = "404-page"
+
+# Substitua "COLOQUE_AQUI_O_ID_DO_NAMESPACE" pelo ID do namespace KV
+# criado no painel do Cloudflare (Workers & Pages > Storage > KV).
+[[kv_namespaces]]
+binding = "PAINEL_KV"
+id = "COLOQUE_AQUI_O_ID_DO_NAMESPACE"
