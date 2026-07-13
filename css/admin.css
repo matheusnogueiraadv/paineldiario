@@ -1,0 +1,130 @@
+/* =========================================================
+   ADMIN — painel administrativo (com rolagem, uso em desktop)
+   ========================================================= */
+body.admin {
+  min-height: 100vh;
+  padding: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.admin-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-topo h1 { font-size: 22px; font-weight: 800; }
+.admin-topo h1 em { color: var(--laranja-2); font-style: normal; }
+.admin-topo p { color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+.admin-acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: filter .15s;
+}
+
+.btn:hover { filter: brightness(1.2); }
+
+.btn--primario {
+  background: linear-gradient(135deg, var(--laranja), var(--laranja-2));
+  border-color: transparent;
+  color: #1d1204;
+}
+
+.btn--perigo { color: var(--vermelho); border-color: rgba(255, 93, 93, .4); }
+.btn--mini { padding: 5px 10px; font-size: 13px; }
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 16px;
+}
+
+.card--admin { padding-bottom: 8px; }
+.card--admin .card__body { padding-bottom: 12px; }
+
+.form-tabela { width: 100%; border-collapse: collapse; font-size: 14px; }
+.form-tabela th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.form-tabela td { padding: 5px 4px; }
+
+.campo {
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  outline: none;
+}
+
+.campo:focus { border-color: var(--laranja); }
+.campo--num { text-align: right; font-variant-numeric: tabular-nums; }
+
+select.campo { appearance: auto; }
+
+.linha-campos { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.linha-campos label { flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+
+.aviso-salvo {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--verde);
+  color: #06220f;
+  font-weight: 800;
+  padding: 12px 26px;
+  border-radius: 999px;
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1);
+  z-index: 50;
+}
+
+.aviso-salvo.visivel { transform: translateX(-50%) translateY(0); }
+
+/* ---------- Tela de senha ---------- */
+.gate {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-grad);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+}
+
+.gate__box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  width: min(360px, 90vw);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+
+.gate__box h2 { font-size: 18px; }
+.gate__erro { color: var(--vermelho); font-size: 13px; font-weight: 700; min-height: 16px; }

@@ -1,0 +1,166 @@
+/* =========================================================
+   BASE — variáveis, reset e componentes compartilhados
+   ========================================================= */
+:root {
+  --bg: #0c0f15;
+  --bg-grad: radial-gradient(1200px 600px at 80% -10%, rgba(255, 122, 26, .08), transparent 60%),
+             radial-gradient(900px 500px at -10% 110%, rgba(77, 163, 255, .05), transparent 60%),
+             #0c0f15;
+  --card: #141924;
+  --card-2: #1a2130;
+  --border: #232c3d;
+  --text: #eef2f8;
+  --muted: #8d99ab;
+
+  --laranja: #ff7a1a;
+  --laranja-2: #ffa245;
+  --ouro: #ffc24b;
+  --verde: #2fd27d;
+  --azul: #4da3ff;
+  --roxo: #a78bfa;
+  --vermelho: #ff5d5d;
+
+  --radius: 14px;
+  --gap: 1.2vh;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-grad);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Card ---------- */
+.card {
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1vh;
+  padding: 1.4vh 1.6vh 1vh;
+  flex: 0 0 auto;
+}
+
+.card__title {
+  font-size: 1.75vh;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: .8vh;
+}
+
+.card__title::before {
+  content: '';
+  width: .5vh;
+  height: 2.1vh;
+  border-radius: 3px;
+  background: var(--laranja);
+}
+
+.card__badge {
+  font-size: 1.5vh;
+  font-weight: 700;
+  color: var(--laranja-2);
+  background: rgba(255, 122, 26, .12);
+  border: 1px solid rgba(255, 122, 26, .3);
+  padding: .4vh 1.1vh;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.card__body {
+  flex: 1;
+  min-height: 0;
+  padding: 0 1.6vh 1.4vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Barra de progresso ---------- */
+.bar {
+  width: 100%;
+  height: 1vh;
+  background: rgba(255, 255, 255, .07);
+  border-radius: 999px;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  transition: width .8s cubic-bezier(.2, .8, .2, 1);
+}
+
+.bar--laranja span { background: linear-gradient(90deg, #ff7a1a, #ffa245); }
+.bar--ouro    span { background: linear-gradient(90deg, #d99b1f, #ffc24b); }
+.bar--verde   span { background: linear-gradient(90deg, #1fae64, #2fd27d); }
+.bar--azul    span { background: linear-gradient(90deg, #2f7fe0, #4da3ff); }
+.bar--roxo    span { background: linear-gradient(90deg, #8b6cf0, #a78bfa); }
+
+/* ---------- KPI ---------- */
+.kpi {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .3vh;
+}
+
+.kpi strong { font-size: 2.9vh; font-weight: 800; line-height: 1; }
+.kpi small  { font-size: 1.3vh; color: var(--muted); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.kpi--laranja strong { color: var(--laranja-2); }
+.kpi--verde   strong { color: var(--verde); }
+
+/* ---------- Chip de coordenador ---------- */
+.coord-chip {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .8vh;
+  padding: .9vh 1.2vh;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, .04);
+  font-size: 1.6vh;
+}
+
+.coord-chip__nome { font-weight: 700; color: var(--muted); }
+.coord-chip__total { font-weight: 800; font-size: 2.2vh; }
+
+.coord-chip--azul  .coord-chip__total { color: var(--azul); }
+.coord-chip--roxo  .coord-chip__total { color: var(--roxo); }
+.coord-chip--verde .coord-chip__total { color: var(--verde); }
+
+/* ---------- Ponto colorido ---------- */
+.dot { width: 1.1vh; height: 1.1vh; border-radius: 50%; flex: 0 0 auto; }
+.dot--azul  { background: var(--azul); }
+.dot--roxo  { background: var(--roxo); }
+.dot--verde { background: var(--verde); }
+.dot--laranja { background: var(--laranja); }

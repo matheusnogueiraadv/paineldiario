@@ -1,0 +1,348 @@
+/* =========================================================
+   DASHBOARD — layout 16:9 sem rolagem (TV)
+   ========================================================= */
+body.dashboard {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap);
+  gap: var(--gap);
+}
+
+/* ---------- Cabeçalho ---------- */
+.topbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2vh;
+  padding: 0 .4vh;
+}
+
+.brand { display: flex; align-items: center; gap: 1.4vh; }
+
+.brand__logo {
+  width: 4.2vh;
+  height: 4.2vh;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--laranja), var(--laranja-2));
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 2.2vh;
+  color: #17130c;
+}
+
+.brand__nome { font-size: 2.3vh; font-weight: 800; letter-spacing: .02em; }
+.brand__nome em { color: var(--laranja-2); font-style: normal; }
+.brand__sub { font-size: 1.45vh; color: var(--muted); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+
+.topbar__right { text-align: right; }
+
+.topbar__admin {
+  display: inline-flex;
+  align-items: center;
+  gap: .6vh;
+  font-size: 1.35vh;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .55vh 1.3vh;
+  margin-bottom: .8vh;
+  background: rgba(255, 255, 255, .03);
+  transition: color .15s, border-color .15s, background .15s;
+}
+
+.topbar__admin::before { content: '🔒'; font-size: 1.2vh; }
+
+.topbar__admin:hover {
+  color: var(--laranja-2);
+  border-color: rgba(255, 122, 26, .4);
+  background: rgba(255, 122, 26, .08);
+}
+.topbar__relogio { font-size: 3vh; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.topbar__data { font-size: 1.5vh; color: var(--muted); font-weight: 600; }
+.topbar__sync { font-size: 1.25vh; color: var(--muted); display: flex; align-items: center; gap: .6vh; justify-content: flex-end; margin-top: .3vh; }
+.topbar__sync::before {
+  content: '';
+  width: .9vh; height: .9vh; border-radius: 50%;
+  background: var(--verde);
+  animation: pulse 2.4s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .35; }
+}
+
+/* ---------- Grade principal ---------- */
+.grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: 1.15fr 1fr 1.05fr;
+  grid-template-rows: minmax(0, 27fr) minmax(0, 73fr);
+  grid-template-areas:
+    "hero    hero    hero"
+    "ranking prazos  stack";
+}
+
+/* ---------- Hero financeiro (destaque) ---------- */
+.hero {
+  grid-area: hero;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: .6vh;
+  border: 1px solid rgba(255, 122, 26, .45);
+  background:
+    radial-gradient(60% 140% at 50% 0%, rgba(255, 122, 26, .16), transparent 70%),
+    linear-gradient(180deg, var(--card-2), var(--card));
+  box-shadow: 0 0 6vh rgba(255, 122, 26, .12) inset;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .045) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: shine 7s infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  40%, 100% { transform: translateX(100%); }
+}
+
+.hero__rotulo {
+  font-size: 1.7vh;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--laranja-2);
+}
+
+.hero__valor {
+  font-size: 6.6vh;
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #fff, #ffd9b3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 5vh rgba(255, 122, 26, .25);
+}
+
+.hero__data { font-size: 1.4vh; color: var(--muted); font-weight: 600; }
+
+.hero-meta {
+  display: flex;
+  gap: 1.6vh;
+  margin-top: .6vh;
+  z-index: 1;
+}
+
+.hero-meta__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .2vh;
+  padding: .6vh 1.6vh;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 122, 26, .3);
+  background: rgba(255, 122, 26, .08);
+}
+
+.hero-meta__item small {
+  font-size: 1.2vh;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.hero-meta__item strong {
+  font-size: 2vh;
+  font-weight: 800;
+  color: var(--laranja-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Ranking de Ajuizamento ---------- */
+#cardRanking { grid-area: ranking; }
+
+.rank-lista {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: .6vh;
+}
+
+.rank-row {
+  display: flex;
+  flex-direction: column;
+  gap: .45vh;
+  padding: .5vh .8vh;
+  border-radius: 10px;
+}
+
+.rank-row--ouro { background: rgba(255, 194, 75, .08); }
+
+.rank-row__info {
+  display: flex;
+  align-items: baseline;
+  gap: 1vh;
+  font-size: 1.85vh;
+}
+
+.pos {
+  font-size: 1.5vh;
+  font-weight: 800;
+  color: var(--muted);
+  background: rgba(255, 255, 255, .06);
+  border-radius: 7px;
+  padding: .25vh .7vh;
+  min-width: 3.4vh;
+  text-align: center;
+}
+
+.pos--ouro   { color: #1d1608; background: linear-gradient(135deg, #d99b1f, #ffc24b); }
+.pos--prata  { color: #14181f; background: linear-gradient(135deg, #9aa7b5, #cfd8e3); }
+.pos--bronze { color: #1d120a; background: linear-gradient(135deg, #b06a34, #d9925a); }
+
+.rank-row__nome { font-weight: 700; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rank-row__qtd { font-weight: 800; font-size: 2.1vh; color: var(--laranja-2); font-variant-numeric: tabular-nums; }
+.rank-row__falta { font-size: 1.35vh; color: var(--muted); font-weight: 600; min-width: 9vh; text-align: right; }
+.rank-row--ouro .rank-row__falta { color: var(--ouro); }
+
+.rank-rodape {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--gap);
+  margin-top: 1vh;
+}
+
+.total-box {
+  flex: 1;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .9vh 1.2vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.total-box small  { font-size: 1.4vh; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.total-box strong { font-size: 2.8vh; font-weight: 800; }
+.total-box--ouro strong { color: var(--ouro); }
+.total-box--ouro { border-color: rgba(255, 194, 75, .35); }
+
+/* ---------- Agenda de Prazos ---------- */
+#cardPrazos { grid-area: prazos; }
+
+.prazos-lista {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: .5vh;
+}
+
+.prazo-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 14vh) 1fr auto;
+  align-items: center;
+  gap: 1.1vh;
+  font-size: 1.75vh;
+}
+
+.prazo-row__nome { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.prazo-row__qtd { font-weight: 800; font-size: 2.1vh; font-variant-numeric: tabular-nums; min-width: 3.2vh; text-align: right; }
+
+.prazos-coordenadores {
+  flex: 0 0 auto;
+  display: flex;
+  gap: .9vh;
+  margin-top: 1.1vh;
+}
+
+/* ---------- Coluna empilhada (direita) ---------- */
+.stack {
+  grid-area: stack;
+  display: grid;
+  grid-template-rows: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, .95fr);
+  gap: var(--gap);
+  min-height: 0;
+}
+
+/* ---------- Audiências ---------- */
+.audiencias-tabela {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.6vh;
+  table-layout: fixed;
+}
+
+.audiencias-tabela th {
+  text-align: left;
+  font-size: 1.25vh;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: .4vh .6vh;
+  border-bottom: 1px solid var(--border);
+}
+
+.audiencias-tabela td {
+  padding: .65vh .6vh;
+  border-bottom: 1px solid rgba(255, 255, 255, .05);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+
+.audiencias-tabela .td-hora { color: var(--laranja-2); font-weight: 800; font-variant-numeric: tabular-nums; }
+.audiencias-tabela .td-adv  { color: var(--muted); }
+.audiencias-tabela .td-vazio { text-align: center; color: var(--muted); padding: 2vh 0; }
+
+.audiencias-kpis { flex: 0 0 auto; display: flex; gap: .9vh; margin-top: 1vh; }
+
+/* ---------- Publicações ---------- */
+.publicacoes-kpis { flex: 1; display: flex; gap: .9vh; min-height: 0; }
+.publicacoes-barra { flex: 0 0 auto; margin-top: 1vh; display: flex; flex-direction: column; gap: .5vh; }
+.publicacoes-barra small { font-size: 1.3vh; color: var(--muted); font-weight: 600; }
+
+/* ---------- Atendimentos ---------- */
+.atend-lista {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: .8vh;
+}
+
+.atend-row { display: flex; flex-direction: column; gap: .5vh; }
+.atend-row__info { display: flex; justify-content: space-between; align-items: baseline; font-size: 1.85vh; }
+.atend-row__nome { font-weight: 700; }
+.atend-row__qtd { font-weight: 800; font-size: 2.2vh; font-variant-numeric: tabular-nums; }
+.atend-row__qtd small { color: var(--muted); font-weight: 600; font-size: 1.5vh; }

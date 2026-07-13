@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cerus — Administração do Painel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin">
+
+  <!-- Tela de senha -->
+  <div class="gate" id="gate">
+    <form class="gate__box" id="gateForm">
+      <h2>🔒 Painel Administrativo</h2>
+      <input class="campo" type="password" id="gateSenha" placeholder="Senha de acesso" autofocus />
+      <div class="gate__erro" id="gateErro"></div>
+      <button class="btn btn--primario" type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- Conteúdo -->
+  <header class="admin-topo">
+    <div>
+      <h1>CERUS <em>ADVOGADOS</em> · Administração</h1>
+      <p>As alterações salvas aqui atualizam o painel da TV automaticamente.</p>
+    </div>
+    <div class="admin-acoes">
+      <button class="btn" id="btnAbrirPainel">📺 Abrir painel</button>
+      <button class="btn" id="btnExportar">Exportar JSON</button>
+      <button class="btn" id="btnImportar">Importar JSON</button>
+      <input type="file" id="inputImportar" accept=".json" hidden />
+      <button class="btn btn--perigo" id="btnResetar">Restaurar dados fictícios</button>
+      <button class="btn btn--primario" id="btnSalvar">💾 Salvar alterações</button>
+    </div>
+  </header>
+
+  <main class="admin-grid" id="adminGrid">
+    <!-- Seções geradas por js/admin.js -->
+  </main>
+
+  <div class="aviso-salvo" id="avisoSalvo">✓ Alterações salvas — painel atualizado</div>
+
+  <script src="js/config.js"></script>
+  <script src="js/mock-data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

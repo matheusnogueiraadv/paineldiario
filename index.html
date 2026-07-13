@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cerus — Painel de Produtividade Jurídica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body class="dashboard">
+
+  <!-- Cabeçalho -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand__logo">C</div>
+      <div>
+        <div class="brand__nome">CERUS <em>ADVOGADOS</em></div>
+        <div class="brand__sub">Painel de Produtividade Jurídica</div>
+      </div>
+    </div>
+    <div class="topbar__right">
+      <a class="topbar__admin" href="admin.html" target="_blank" rel="noopener">Painel da Controladoria</a>
+      <div class="topbar__relogio" id="relogio">--:--:--</div>
+      <div class="topbar__data" id="dataHoje">—</div>
+      <div class="topbar__sync" id="atualizadoEm">Sincronizando…</div>
+    </div>
+  </header>
+
+  <!-- Grade principal -->
+  <main class="grid">
+
+    <!-- 6. Indicador Financeiro (destaque principal) -->
+    <section class="card hero" id="cardFinanceiro">
+      <div class="hero__rotulo" id="financeiroRotulo">Inadimplência arrecadada</div>
+      <div class="hero__valor" id="financeiroValor">R$ 0,00</div>
+      <div class="hero__data" id="financeiroData">—</div>
+      <div class="hero-meta" id="financeiroMeta"></div>
+    </section>
+
+    <!-- 1. Ranking de Ajuizamento -->
+    <section class="card" id="cardRanking">
+      <div class="card__header">
+        <h2 class="card__title">Ranking de Ajuizamento</h2>
+        <span class="card__badge" id="rankingMeta">Meta Ouro: —</span>
+      </div>
+      <div class="card__body">
+        <div class="rank-lista" id="rankingLista"></div>
+        <div class="rank-rodape" id="rankingRodape"></div>
+      </div>
+    </section>
+
+    <!-- 2. Agenda de Prazos (hoje) -->
+    <section class="card" id="cardPrazos">
+      <div class="card__header">
+        <h2 class="card__title">Agenda de Prazos · Hoje</h2>
+        <span class="card__badge" id="prazosTotal">—</span>
+      </div>
+      <div class="card__body">
+        <div class="prazos-lista" id="prazosLista"></div>
+        <div class="prazos-coordenadores" id="prazosCoordenadores"></div>
+      </div>
+    </section>
+
+    <!-- Coluna direita: audiências, publicações e atendimentos -->
+    <div class="stack">
+
+      <!-- 3. Audiências do dia -->
+      <section class="card" id="cardAudiencias">
+        <div class="card__header">
+          <h2 class="card__title">Audiências do Dia</h2>
+          <span class="card__badge" id="audienciasPaginacao"></span>
+        </div>
+        <div class="card__body">
+          <table class="audiencias-tabela">
+            <thead>
+              <tr><th style="width:44%">Condomínio</th><th style="width:16%">Horário</th><th style="width:40%">Advogado</th></tr>
+            </thead>
+            <tbody id="audienciasCorpo"></tbody>
+          </table>
+          <div class="audiencias-kpis" id="audienciasKpis"></div>
+        </div>
+      </section>
+
+      <!-- 4. Publicações -->
+      <section class="card" id="cardPublicacoes">
+        <div class="card__header">
+          <h2 class="card__title">Publicações</h2>
+        </div>
+        <div class="card__body">
+          <div class="publicacoes-kpis" id="publicacoesKpis"></div>
+          <div class="publicacoes-barra" id="publicacoesBarra"></div>
+        </div>
+      </section>
+
+      <!-- 5. Atendimentos para Ajuizamento -->
+      <section class="card" id="cardAtendimentos">
+        <div class="card__header">
+          <h2 class="card__title">Atendimentos p/ Ajuizamento</h2>
+        </div>
+        <div class="card__body">
+          <div class="atend-lista" id="atendimentosLista"></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/mock-data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
