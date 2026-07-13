@@ -77,6 +77,9 @@
         <label>Meta geral do time
           ${inputNum('ranking.metaTime', dados.ranking.metaTime ?? dados.ranking.metaOuro * dados.ranking.responsaveis.length)}
         </label>
+        <label>Data da última atualização
+          <input class="campo" type="date" data-campo="ranking.dataAtualizacao" value="${dados.ranking.dataAtualizacao || ''}" />
+        </label>
       </div>
       <table class="form-tabela">
         <thead><tr><th>Responsável</th><th>Ajuizados</th></tr></thead>
@@ -131,12 +134,17 @@
   }
 
   function htmlAtendimentos() {
-    const linhas = dados.atendimentos.map((a, i) => `<tr>
-      <td>${inputTexto(`atendimentos.${i}.nome`, a.nome)}</td>
-      <td style="width:120px">${inputNum(`atendimentos.${i}.abertos`, a.abertos)}</td>
-      <td style="width:120px">${inputNum(`atendimentos.${i}.meta`, a.meta)}</td>
+    const linhas = dados.atendimentos.lista.map((a, i) => `<tr>
+      <td>${inputTexto(`atendimentos.lista.${i}.nome`, a.nome)}</td>
+      <td style="width:120px">${inputNum(`atendimentos.lista.${i}.abertos`, a.abertos)}</td>
+      <td style="width:120px">${inputNum(`atendimentos.lista.${i}.meta`, a.meta)}</td>
     </tr>`).join('');
     return secao('Atendimentos p/ Ajuizamento', `
+      <div class="linha-campos" style="margin-bottom:10px">
+        <label>Data da última atualização
+          <input class="campo" type="date" data-campo="atendimentos.dataAtualizacao" value="${dados.atendimentos.dataAtualizacao || ''}" />
+        </label>
+      </div>
       <table class="form-tabela">
         <thead><tr><th>Atendente</th><th>Abertos</th><th>Meta</th></tr></thead>
         <tbody>${linhas}</tbody>

@@ -75,6 +75,15 @@ body {
   background: var(--laranja);
 }
 
+.card__data {
+  font-size: 1.25vh;
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-right: .8vh;
+}
+
 .card__badge {
   font-size: 1.5vh;
   font-weight: 700;
@@ -154,7 +163,8 @@ body {
 .coord-chip__nome { font-weight: 700; color: var(--muted); }
 .coord-chip__total { font-weight: 800; font-size: 2.2vh; }
 
-.coord-chip--azul  .coord-chip__total { color: var(--azul); }
+.coord-chip--azul    .coord-chip__total { color: var(--azul); }
+.coord-chip--laranja .coord-chip__total { color: var(--laranja-2); }
 .coord-chip--roxo  .coord-chip__total { color: var(--roxo); }
 .coord-chip--verde .coord-chip__total { color: var(--verde); }
 

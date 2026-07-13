@@ -18,6 +18,7 @@ const MOCK_DATA = {
   ranking: {
     metaOuro: 180, // meta individual de processos ajuizados
     metaTime: 540, // meta geral do time (apenas 3 auxiliares ativos neste mês)
+    dataAtualizacao: '2026-07-10',
     responsaveis: [
       { nome: 'Auxiliar Jurídico 1', ajuizados: 37 },
       { nome: 'Auxiliar Jurídico 2', ajuizados: 33 },
@@ -65,8 +66,11 @@ const MOCK_DATA = {
   },
 
   // 5. Atendimentos para Ajuizamento
-  atendimentos: [
-    { nome: 'Assistente 1', abertos: 14, meta: 20 },
-    { nome: 'Assistente 2', abertos: 17, meta: 20 },
-  ],
+  atendimentos: {
+    dataAtualizacao: '2026-07-10',
+    lista: [
+      { nome: 'Assistente 1', abertos: 14, meta: 310 },
+      { nome: 'Assistente 2', abertos: 17, meta: 310 },
+    ],
+  },
 };

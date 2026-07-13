@@ -11,7 +11,7 @@
   let valorFinanceiroAnterior = null;
   let paginaAudiencias = 0;
 
-  const TONES_COORD = { 'Fábio': 'azul', 'Daniel': 'roxo', 'Jéssica': 'verde' };
+  const TONES_COORD = { 'Fábio': 'laranja', 'Daniel': 'roxo', 'Jéssica': 'verde' };
 
   /* ---------- Cabeçalho: data e relógio ---------- */
   function renderRelogio() {
@@ -67,9 +67,16 @@
       </div>` : '';
   }
 
+  /* Formata uma data 'YYYY-MM-DD' como texto curto de "última atualização". */
+  function formatarDataAtualizacao(str) {
+    if (!str) return '';
+    return 'Atualizado em ' + parseDataLocal(str).toLocaleDateString('pt-BR');
+  }
+
   /* ---------- 1. Ranking de Ajuizamento ---------- */
   function renderRanking(d) {
     const meta = d.ranking.metaOuro;
+    $('#rankingData').textContent = formatarDataAtualizacao(d.ranking.dataAtualizacao);
     const lista = [...d.ranking.responsaveis]
       .sort((a, b) => b.ajuizados - a.ajuizados)
       .slice(0, 7);
@@ -98,7 +105,7 @@
       <div class="total-box total-box--ouro">
         <small>Restante p/ Meta Ouro</small><strong>${UI.int(restante)}</strong>
       </div>`;
-    $('#rankingMeta').textContent = `Meta Ouro: ${UI.int(meta)}`;
+    $('#rankingMeta').textContent = `Meta Ouro: ${UI.int(metaTime)}`;
   }
 
   /* ---------- 2. Agenda de Prazos (hoje) ---------- */
@@ -166,7 +173,8 @@
 
   /* ---------- 5. Atendimentos para Ajuizamento ---------- */
   function renderAtendimentos(d) {
-    $('#atendimentosLista').innerHTML = d.atendimentos.map(a => {
+    $('#atendimentosData').textContent = formatarDataAtualizacao(d.atendimentos.dataAtualizacao);
+    $('#atendimentosLista').innerHTML = d.atendimentos.lista.map(a => {
       const p = UI.pct(a.abertos, a.meta);
       const atingiu = a.abertos >= a.meta;
       return `<div class="atend-row">
