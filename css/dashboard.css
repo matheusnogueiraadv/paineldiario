@@ -88,8 +88,8 @@ body.dashboard {
   grid-template-columns: 1.15fr 1fr 1.05fr;
   grid-template-rows: minmax(0, 27fr) minmax(0, 73fr);
   grid-template-areas:
-    "hero    matriculas matriculas"
-    "ranking prazos     stack";
+    "hero    hero   matriculas"
+    "ranking prazos stack";
 }
 
 /* ---------- Hero financeiro (destaque) ---------- */
