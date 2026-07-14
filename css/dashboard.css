@@ -88,8 +88,8 @@ body.dashboard {
   grid-template-columns: 1.15fr 1fr 1.05fr;
   grid-template-rows: minmax(0, 27fr) minmax(0, 73fr);
   grid-template-areas:
-    "hero    hero    hero"
-    "ranking prazos  stack";
+    "hero    matriculas matriculas"
+    "ranking prazos     stack";
 }
 
 /* ---------- Hero financeiro (destaque) ---------- */
@@ -97,13 +97,14 @@ body.dashboard {
   grid-area: hero;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   gap: .6vh;
+  padding: 0 1.8vh;
   border: 1px solid rgba(255, 122, 26, .45);
   background:
-    radial-gradient(60% 140% at 50% 0%, rgba(255, 122, 26, .16), transparent 70%),
+    radial-gradient(60% 140% at 0% 0%, rgba(255, 122, 26, .16), transparent 70%),
     linear-gradient(180deg, var(--card-2), var(--card));
   box-shadow: 0 0 6vh rgba(255, 122, 26, .12) inset;
   overflow: hidden;
@@ -133,7 +134,7 @@ body.dashboard {
 }
 
 .hero__valor {
-  font-size: 6.6vh;
+  font-size: 4.6vh;
   font-weight: 900;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -148,17 +149,18 @@ body.dashboard {
 
 .hero-meta {
   display: flex;
-  gap: 1.6vh;
-  margin-top: .6vh;
+  flex-wrap: wrap;
+  gap: .8vh;
+  margin-top: .4vh;
   z-index: 1;
 }
 
 .hero-meta__item {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: .2vh;
-  padding: .6vh 1.6vh;
+  padding: .5vh 1.2vh;
   border-radius: 10px;
   border: 1px solid rgba(255, 122, 26, .3);
   background: rgba(255, 122, 26, .08);
@@ -330,6 +332,10 @@ body.dashboard {
 .publicacoes-kpis { flex: 1; display: flex; gap: .9vh; min-height: 0; }
 .publicacoes-barra { flex: 0 0 auto; margin-top: 1vh; display: flex; flex-direction: column; gap: .5vh; }
 .publicacoes-barra small { font-size: 1.3vh; color: var(--muted); font-weight: 600; }
+
+/* ---------- Solicitação de Matrículas ---------- */
+#cardMatriculas { grid-area: matriculas; }
+.matriculas-kpis { flex: 1; display: flex; gap: .9vh; min-height: 0; }
 
 /* ---------- Atendimentos ---------- */
 .atend-lista {

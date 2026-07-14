@@ -151,9 +151,21 @@
       </table>`);
   }
 
+  function htmlMatriculas() {
+    return secao('Solicitação de Matrículas', `
+      <div class="linha-campos">
+        <label>Cerus (carteira interna)
+          ${inputNum('matriculas.cerus', dados.matriculas.cerus)}
+        </label>
+        <label>Parceiros (carteira externa)
+          ${inputNum('matriculas.parceiros', dados.matriculas.parceiros)}
+        </label>
+      </div>`);
+  }
+
   function render() {
     grid().innerHTML =
-      htmlFinanceiro() + htmlRanking() + htmlPrazos() +
+      htmlFinanceiro() + htmlMatriculas() + htmlRanking() + htmlPrazos() +
       htmlAudiencias() + htmlPublicacoes() + htmlAtendimentos();
 
     $('#btnAddAudiencia')?.addEventListener('click', () => {

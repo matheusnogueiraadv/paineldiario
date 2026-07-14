@@ -73,4 +73,10 @@ const MOCK_DATA = {
       { nome: 'Assistente 2', abertos: 17, meta: 310 },
     ],
   },
+
+  // 7. Solicitação de Matrículas
+  matriculas: {
+    cerus: 45,
+    parceiros: 493,
+  },
 };

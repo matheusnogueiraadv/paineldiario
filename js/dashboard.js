@@ -187,10 +187,19 @@
     }).join('');
   }
 
+  /* ---------- 7. Solicitação de Matrículas ---------- */
+  function renderMatriculas(d) {
+    const m = d.matriculas;
+    $('#matriculasKpis').innerHTML =
+      UI.kpi(UI.int(m.cerus), 'Cerus', 'laranja') +
+      UI.kpi(UI.int(m.parceiros), 'Parceiros');
+  }
+
   /* ---------- Orquestração ---------- */
   function renderAll(d) {
     dadosAtuais = d;
     renderFinanceiro(d);
+    renderMatriculas(d);
     renderRanking(d);
     renderPrazos(d);
     renderAudiencias(d);
