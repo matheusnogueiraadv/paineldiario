@@ -195,10 +195,23 @@
       UI.kpi(UI.int(m.parceiros), 'Parceiros');
   }
 
+  /* ---------- 8. Dados Processuais ---------- */
+  function renderProcessos(d) {
+    const p = d.processos;
+    $('#processosTotal').innerHTML = UI.kpi(UI.int(p.total), 'Total de processos', 'laranja');
+    $('#processosCoordenadores').innerHTML = p.porCoordenador.map(c =>
+      UI.coordChip(c.nome, c.quantidade, TONES_COORD[c.nome] || 'laranja')
+    ).join('');
+    $('#processosKpis').innerHTML =
+      UI.kpi(UI.int(p.unidadesSemProcesso), 'Sem processo (180+)') +
+      UI.kpi(UI.int(p.aSanear), 'A sanear', 'verde');
+  }
+
   /* ---------- Orquestração ---------- */
   function renderAll(d) {
     dadosAtuais = d;
     renderFinanceiro(d);
+    renderProcessos(d);
     renderMatriculas(d);
     renderRanking(d);
     renderPrazos(d);

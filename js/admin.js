@@ -163,9 +163,32 @@
       </div>`);
   }
 
+  function htmlProcessos() {
+    const linhas = dados.processos.porCoordenador.map((c, i) => `<tr>
+      <td>${inputTexto(`processos.porCoordenador.${i}.nome`, c.nome)}</td>
+      <td style="width:140px">${inputNum(`processos.porCoordenador.${i}.quantidade`, c.quantidade)}</td>
+    </tr>`).join('');
+    return secao('Dados Processuais', `
+      <div class="linha-campos" style="margin-bottom:10px">
+        <label>Total de processos
+          ${inputNum('processos.total', dados.processos.total)}
+        </label>
+        <label>Unidades sem processo (180+)
+          ${inputNum('processos.unidadesSemProcesso', dados.processos.unidadesSemProcesso)}
+        </label>
+        <label>Processos a sanear
+          ${inputNum('processos.aSanear', dados.processos.aSanear)}
+        </label>
+      </div>
+      <table class="form-tabela">
+        <thead><tr><th>Coordenador</th><th>Processos</th></tr></thead>
+        <tbody>${linhas}</tbody>
+      </table>`);
+  }
+
   function render() {
     grid().innerHTML =
-      htmlFinanceiro() + htmlMatriculas() + htmlRanking() + htmlPrazos() +
+      htmlFinanceiro() + htmlProcessos() + htmlMatriculas() + htmlRanking() + htmlPrazos() +
       htmlAudiencias() + htmlPublicacoes() + htmlAtendimentos();
 
     $('#btnAddAudiencia')?.addEventListener('click', () => {

@@ -14,6 +14,18 @@ const MOCK_DATA = {
     rotulo: 'Inadimplência arrecadada',
   },
 
+  // 8. Dados Processuais
+  processos: {
+    total: 10405,
+    porCoordenador: [
+      { nome: 'Daniel', quantidade: 4553 },
+      { nome: 'Fábio', quantidade: 5199 },
+      { nome: 'Jéssica', quantidade: 673 },
+    ],
+    unidadesSemProcesso: 2590, // unidades sem processo (180+)
+    aSanear: 193,
+  },
+
   // 1. Ranking de Ajuizamento
   ranking: {
     metaOuro: 180, // meta individual de processos ajuizados

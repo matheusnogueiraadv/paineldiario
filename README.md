@@ -48,6 +48,8 @@ PainelProdutividade/
    progresso.
 6. **Indicador Financeiro** — inadimplência arrecadada até a data, em destaque
    no topo da tela.
+7. **Dados Processuais** — total de processos, quebra por coordenador (Fábio,
+   Daniel, Jéssica), unidades sem processo (180+) e processos a sanear.
 
 ## Como adicionar um novo indicador
 
