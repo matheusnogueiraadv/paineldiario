@@ -10,6 +10,24 @@
   const grid = () => $('#adminGrid');
 
   let dados = null;
+  let importouTudo = false;
+
+  /* Rastreiam o que foi realmente editado nesta sessão do admin, para que
+     o "Salvar" não sobrescreva campos alterados por outra aba/pessoa
+     enquanto esta ficou aberta (ver initAcoes > btnSalvar). */
+  const sujos = new Set();          // caminhos individuais, ex.: "financeiro.arrecadado"
+  const secoesInteiras = new Set(); // seções cuja lista mudou de tamanho (add/remover linha)
+
+  function lerCaminho(obj, caminho) {
+    return caminho.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
+  }
+
+  function aplicarCaminho(obj, caminho, valor) {
+    const partes = caminho.split('.');
+    let alvo = obj;
+    for (let i = 0; i < partes.length - 1; i++) alvo = alvo[partes[i]];
+    alvo[partes[partes.length - 1]] = valor;
+  }
 
   /* ---------- Controle de acesso ---------- */
   function initGate() {
@@ -194,6 +212,7 @@
     $('#btnAddAudiencia')?.addEventListener('click', () => {
       coletar();
       dados.audiencias.hoje.push({ condominio: '', horario: '', advogado: '' });
+      secoesInteiras.add('audiencias');
       render();
     });
 
@@ -201,6 +220,7 @@
       btn.addEventListener('click', () => {
         coletar();
         dados.audiencias.hoje.splice(Number(btn.dataset.removerAud), 1);
+        secoesInteiras.add('audiencias');
         render();
       });
     });
@@ -225,10 +245,39 @@
   }
 
   function initAcoes() {
+    // Marca como "sujo" qualquer campo que o usuário realmente editar nesta
+    // sessão — é isso que o Salvar usa para não sobrescrever o resto.
+    grid().addEventListener('input', (e) => {
+      const campo = e.target?.dataset?.campo;
+      if (campo) sujos.add(campo);
+    });
+    grid().addEventListener('change', (e) => {
+      const campo = e.target?.dataset?.campo;
+      if (campo) sujos.add(campo);
+    });
+
     $('#btnSalvar').addEventListener('click', async () => {
       coletar();
       try {
-        await DataStore.save(dados);
+        let paraSalvar;
+        if (importouTudo) {
+          paraSalvar = dados;
+        } else {
+          // Busca a versão mais recente da nuvem (pode ter sido alterada por
+          // outra aba/pessoa) e aplica só os campos editados aqui por cima.
+          paraSalvar = await DataStore.load();
+          for (const secao of secoesInteiras) {
+            paraSalvar[secao] = JSON.parse(JSON.stringify(dados[secao]));
+          }
+          for (const campo of sujos) {
+            aplicarCaminho(paraSalvar, campo, lerCaminho(dados, campo));
+          }
+        }
+        await DataStore.save(paraSalvar);
+        dados = paraSalvar;
+        sujos.clear();
+        secoesInteiras.clear();
+        importouTudo = false;
         mostrarAviso();
       } catch (e) {
         alert('Não foi possível salvar na nuvem. Verifique sua conexão e tente novamente.');
@@ -242,6 +291,9 @@
       if (!confirm('Restaurar os dados fictícios originais? As alterações atuais serão perdidas.')) return;
       try {
         dados = await DataStore.reset();
+        sujos.clear();
+        secoesInteiras.clear();
+        importouTudo = false;
         render();
       } catch (e) {
         alert('Não foi possível restaurar os dados na nuvem. Verifique sua conexão e tente novamente.');
@@ -267,6 +319,9 @@
       leitor.onload = () => {
         try {
           dados = JSON.parse(leitor.result);
+          importouTudo = true;
+          sujos.clear();
+          secoesInteiras.clear();
           render();
           alert('Dados importados. Clique em "Salvar alterações" para aplicar no painel.');
         } catch {
