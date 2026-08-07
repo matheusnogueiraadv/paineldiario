@@ -240,6 +240,10 @@
       paginaAudiencias++;
       if (dadosAtuais) renderAudiencias(dadosAtuais);
     }, CONFIG.rotateMs);
+
+    // Recarrega a página inteira periodicamente para sempre pegar a versão
+    // mais recente do código publicado (ver comentário em CONFIG.reloadMs).
+    setInterval(() => location.reload(), CONFIG.reloadMs);
   }
 
   document.addEventListener('DOMContentLoaded', init);
