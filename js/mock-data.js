@@ -23,7 +23,6 @@ const MOCK_DATA = {
       { nome: 'Jéssica', quantidade: 673 },
     ],
     unidadesSemProcesso: 2590, // unidades sem processo (180+)
-    aSanear: 193,
   },
 
   // 1. Ranking de Ajuizamento

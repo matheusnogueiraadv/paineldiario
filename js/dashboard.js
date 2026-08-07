@@ -204,8 +204,6 @@
     $('#processosCoordenadores').innerHTML = p.porCoordenador.map(c =>
       UI.coordChip(c.nome, c.quantidade, TONES_COORD[c.nome] || 'laranja')
     ).join('');
-    $('#processosKpis').innerHTML =
-      UI.kpi(UI.int(p.aSanear), 'A sanear', 'verde');
   }
 
   /* ---------- Orquestração ---------- */

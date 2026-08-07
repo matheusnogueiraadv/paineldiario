@@ -194,9 +194,6 @@
         <label>Unidades sem processo (180+)
           ${inputNum('processos.unidadesSemProcesso', dados.processos.unidadesSemProcesso)}
         </label>
-        <label>Processos a sanear
-          ${inputNum('processos.aSanear', dados.processos.aSanear)}
-        </label>
       </div>
       <table class="form-tabela">
         <thead><tr><th>Coordenador</th><th>Processos</th></tr></thead>

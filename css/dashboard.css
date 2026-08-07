@@ -340,8 +340,7 @@ body.dashboard {
 /* ---------- Dados Processuais ---------- */
 #cardProcessos { grid-area: processos; }
 .processos-total,
-.processos-coordenadores,
-.processos-kpis {
+.processos-coordenadores {
   flex: 1;
   min-height: 0;
   display: flex;
