@@ -88,8 +88,8 @@ body.dashboard {
   grid-template-columns: 1.15fr 1fr 1.05fr;
   grid-template-rows: minmax(0, 27fr) minmax(0, 73fr);
   grid-template-areas:
-    "hero    processos matriculas"
-    "ranking prazos    stack";
+    "hero    hero   processos"
+    "ranking prazos stack";
 }
 
 /* ---------- Hero financeiro (destaque) ---------- */
@@ -288,7 +288,7 @@ body.dashboard {
 .stack {
   grid-area: stack;
   display: grid;
-  grid-template-rows: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, .95fr);
+  grid-template-rows: minmax(0, .45fr) minmax(0, 2.6fr) minmax(0, 1.1fr) minmax(0, 1.05fr);
   gap: var(--gap);
   min-height: 0;
 }
@@ -334,7 +334,6 @@ body.dashboard {
 .publicacoes-barra small { font-size: 1.3vh; color: var(--muted); font-weight: 600; }
 
 /* ---------- Solicitação de Matrículas ---------- */
-#cardMatriculas { grid-area: matriculas; }
 .matriculas-kpis { flex: 1; display: flex; gap: .9vh; min-height: 0; }
 
 /* ---------- Dados Processuais ---------- */
