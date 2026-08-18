@@ -16,7 +16,7 @@ const CONFIG = {
   rotateMs: 8000,
 
   // Linhas visíveis por página na tabela de audiências
-  audienciasPorPagina: 3,
+  audienciasPorPagina: 6,
 
   // Senha do painel administrativo
   senhaAdmin: 'Cerus@2026*',
